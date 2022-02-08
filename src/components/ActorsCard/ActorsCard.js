@@ -22,5 +22,5 @@ export const ActorsCard = ({ actors }) => {
 };
 
 ActorsCard.propTypes = {
-  cast: propTypes.arrayOf(propTypes.object).isRequired,
+  actors: propTypes.arrayOf(propTypes.object).isRequired,
 };

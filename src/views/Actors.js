@@ -15,9 +15,9 @@ export const Actors = () => {
       try {
         setLoading(true);
         setError('');
-        const { actors } = await FetchCreditsMovies(movieId);
-        const updatedCast = formatData(actors);
-        setCast(updatedCast);
+        const { cast } = await FetchCreditsMovies(movieId);
+        const updatedActors = formatData(cast);
+        setCast(updatedActors);
       } catch (error) {
         setError(error.message);
       } finally {
