@@ -1,3 +1,3 @@
-import { Component } from 'react';
+// import { Component } from 'react';
 
-export const MovieViews = () => {};
+// export const MovieViews = () => {};
