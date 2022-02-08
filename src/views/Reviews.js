@@ -45,7 +45,7 @@ export const Reviews = () => {
         <ReviewsList reviews={reviews} />
       )}
       {!error && !loading && reviews && reviews.length === 0 && (
-        <h3>Sorry, no reviews for this movie</h3>
+        <h3>There are no reviews for this movie yet</h3>
       )}
     </>
   );

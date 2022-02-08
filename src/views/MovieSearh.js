@@ -50,7 +50,7 @@ export const MovieSearch = () => {
       {error && <h3>Something went wrong, please try again</h3>}
       {movies && !loading && !error && <MovieList movies={movies} />}
       {movies && !loading && !error && movies.length === 0 && (
-        <h3>Nothing found with such query</h3>
+        <h3>Nothing found for this query</h3>
       )}
     </div>
   );
