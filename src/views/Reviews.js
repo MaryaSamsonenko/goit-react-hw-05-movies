@@ -27,10 +27,10 @@ export const Reviews = () => {
     };
 
     const formatData = reviews => {
-      return reviews.map(review => ({
-        id: review.id,
-        author: review.author,
-        content: review.content,
+      return reviews.map(({ id, author, content }) => ({
+        id: id,
+        author: author,
+        content: content,
       }));
     };
 

@@ -26,13 +26,13 @@ export const Actors = () => {
     };
 
     const formatData = actors => {
-      return actors.map(actor => ({
-        id: actor.id,
-        name: actor.name,
-        character: actor.character,
-        profile_path: actor.profile_path
-          ? `https://image.tmdb.org/t/p/w300/${actor.profile_path}`
-          : 'https://cdn.shopify.com/s/files/1/0605/0195/0643/products/calm-black__17549_1200x1200.jpg?v=1632960018',
+      return actors.map(({ id, name, character, profile_path }) => ({
+        id: id,
+        name: name,
+        character: character,
+        profile_path: profile_path
+          ? `https://image.tmdb.org/t/p/w300/${profile_path}`
+          : 'https://vjoy.cc/wp-content/uploads/2020/10/1-36-1024x1024-1.jpg',
       }));
     };
 

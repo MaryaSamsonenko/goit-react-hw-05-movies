@@ -5,7 +5,6 @@ import { HomePage } from './views/HomePage';
 import { MovieDetails } from './views/MovieDetails';
 import { Actors } from './views/Actors';
 import { Reviews } from 'views/Reviews';
-// import { MovieViews } from './views/MovieViews';
 
 const App = () => {
   return (
@@ -13,11 +12,12 @@ const App = () => {
       <Layout />
       <Routes>
         <Route index path="/" element={<HomePage />} />
-
+        {/* <Route path="movies" element={<MovieSearch />} /> */}
         <Route path="/movies/:movieId" element={<MovieDetails />}>
           <Route path="actors" element={<Actors />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
+        <Route path="*" element={<HomePage />} />
       </Routes>
     </>
   );

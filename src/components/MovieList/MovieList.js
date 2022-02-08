@@ -4,11 +4,12 @@ export const MovieList = ({ movies }) => {
   const location = useLocation();
   return (
     <ul>
-      {movies.map(movie => {
+      {movies.map(({ id, title, backdrop_path }) => {
         return (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`} state={{ from: location }}>
-              {movie.title}
+          <li key={id}>
+            <img src={backdrop_path} alt={title} />
+            <Link to={`/movies/${id}`} state={{ from: location }}>
+              {title}
             </Link>
           </li>
         );

@@ -28,17 +28,25 @@ export const MovieDetails = () => {
       }
     };
 
-    const formatData = movie => {
+    const formatData = ({
+      poster_path,
+      release_date,
+      vote_average,
+      genres,
+      overview,
+      title,
+      id,
+    }) => {
       const updatedMovie = {
-        poster_path: movie.poster_path
-          ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
-          : 'https://sd.keepcalms.com/i/keep-calm-poster-not-found.png',
-        release_date: movie.release_date.slice(0, 4),
-        vote_average: movie.vote_average * 10,
-        genres: movie.genres.map(genre => genre.name),
-        overview: movie.overview,
-        title: movie.title,
-        id: movie.id,
+        poster_path: poster_path
+          ? `https://image.tmdb.org/t/p/w300/${poster_path}`
+          : 'https://www.kinonews.ru/images2/noposter160x213.jpg',
+        release_date: release_date.slice(0, 4),
+        vote_average: vote_average * 10,
+        genres: genres.map(genre => genre.name),
+        overview: overview,
+        title: title,
+        id: id,
       };
 
       return updatedMovie;

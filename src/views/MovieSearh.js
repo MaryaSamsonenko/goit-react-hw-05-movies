@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SearchBar } from 'components/SearchBar/SearchBar';
-import { FetchDetailsMovies } from 'services/apiMovies';
+import { FetchSearchMovies } from 'services/apiMovies';
 import { MovieList } from 'components/MovieList/MovieList';
 
 export const MovieSearch = () => {
@@ -19,10 +19,12 @@ export const MovieSearch = () => {
           console.log(query);
           setError('');
 
-          const { data } = await FetchDetailsMovies(query);
-          const updatedMovies = formatData(data);
+          const { results } = await FetchSearchMovies(query);
+          const updatedMovies = formatData(results);
+
           setMovies(updatedMovies);
         } catch (error) {
+          console.log(error);
           setError(error.message);
         } finally {
           setLoading(false);
@@ -30,21 +32,25 @@ export const MovieSearch = () => {
       };
 
       const formatData = data => {
-        return data.map(item => ({ id: item.id, title: item.title }));
+        return data.map(({ id, title }) => ({
+          id: id,
+          title: title,
+        }));
       };
 
       fetch();
     }
   }, [query]);
 
-  const handleSubmit = e => {
+  const handleOnSubmit = e => {
     e.preventDefault();
     setSearchParams({ query: e.currentTarget.elements.query.value });
+    console.log(query);
   };
 
   return (
     <div>
-      <SearchBar onSubmit={handleSubmit} />
+      <SearchBar onSubmit={handleOnSubmit} />
 
       {loading && <h2>Loading...</h2>}
       {error && <h3>Something went wrong, please try again</h3>}
