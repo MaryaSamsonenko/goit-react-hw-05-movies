@@ -8,7 +8,7 @@ export const MovieList = ({ movies }) => {
         return (
           <li key={id}>
             <img src={backdrop_path} alt={title} />
-            <Link to={`/movies/${id}`} state={{ from: location }}>
+            <Link to={`/searchmovies/${id}`} state={{ from: location }}>
               {title}
             </Link>
           </li>

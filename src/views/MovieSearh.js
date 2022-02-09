@@ -7,7 +7,7 @@ import { MovieList } from 'components/MovieList/MovieList';
 export const MovieSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -16,12 +16,9 @@ export const MovieSearch = () => {
       const fetch = async () => {
         try {
           setLoading(true);
-          console.log(query);
           setError('');
-
           const { results } = await FetchSearchMovies(query);
           const updatedMovies = formatData(results);
-
           setMovies(updatedMovies);
         } catch (error) {
           console.log(error);
@@ -32,9 +29,12 @@ export const MovieSearch = () => {
       };
 
       const formatData = data => {
-        return data.map(({ id, title }) => ({
+        return data.map(({ id, title, backdrop_path }) => ({
           id: id,
           title: title,
+          backdrop_path: backdrop_path
+            ? `https://image.tmdb.org/t/p/w300/${backdrop_path}`
+            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTiBTdnxCeTWFTxIw8qrl3Vgib35BNu3R5zaNfFi8T76tUqxnQa8Qf5FOeoLDFpxfbWXU&usqp=CAU',
         }));
       };
 
@@ -45,7 +45,6 @@ export const MovieSearch = () => {
   const handleOnSubmit = e => {
     e.preventDefault();
     setSearchParams({ query: e.currentTarget.elements.query.value });
-    console.log(query);
   };
 
   return (

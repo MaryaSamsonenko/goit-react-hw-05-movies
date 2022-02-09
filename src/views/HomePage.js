@@ -36,9 +36,11 @@ export const HomePage = () => {
 
     fetch();
   }, [page]);
+
   const handleOnClick = () => {
     setPage(prevPage => prevPage + 1);
   };
+
   return (
     <Container>
       {loading && <h3>Loading...</h3>}

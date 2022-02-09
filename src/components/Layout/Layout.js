@@ -7,7 +7,7 @@ export const Layout = () => {
         <Container>
           <nav>
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/movies">Movies</NavLink>
+            <NavLink to="/searchmovies">Movies</NavLink>
           </nav>
         </Container>
       </header>
