@@ -1,10 +1,16 @@
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import { FetchDetailsMovies } from 'services/apiMovies';
 import { MovieCard } from 'components/MovieCard/MovieCard';
 import { Container } from 'components/Container/Container';
-// import { Loader } from 'components/Loader/Loader';
+import { Section } from 'components/Section/Section';
+import {
+  GoBackLink,
+  Hr,
+  NotificationTitle,
+  TitleLink,
+  WrapperTitleLink,
+} from 'components/HomeStyle/Home.styled';
 
 export const MovieDetails = () => {
   const location = useLocation();
@@ -56,17 +62,33 @@ export const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <Container>
-      <button to={location?.state?.from ?? '/'}>Go back</button>
-      {loading && <h3>...Loading</h3>}
-      {error && <h2>Something went wrong, please try again</h2>}
-      {!error && !loading && movie && <MovieCard movie={movie} />}
-      <hr />
-      <div>
-        <Link to={'actors'}>Actors</Link>
-        <Link to={'reviews'}>Reviews</Link>
-      </div>
-      <Outlet />
-    </Container>
+    <>
+      <Section>
+        <Container>
+          <GoBackLink to={location?.state?.from ?? '/'}>Go back</GoBackLink>
+          {loading && <NotificationTitle>...Loading</NotificationTitle>}
+          {error && (
+            <NotificationTitle>
+              Something went wrong, please try again
+            </NotificationTitle>
+          )}
+          {!error && !loading && movie && <MovieCard movie={movie} />}
+        </Container>
+      </Section>
+      <Hr />
+      <Section>
+        <Container>
+          <WrapperTitleLink>
+            <TitleLink state={{ from: location?.state?.from }} to={'cast'}>
+              Cast
+            </TitleLink>
+            <TitleLink state={{ from: location?.state?.from }} to={'reviews'}>
+              Reviews
+            </TitleLink>
+          </WrapperTitleLink>
+          <Outlet />
+        </Container>
+      </Section>
+    </>
   );
 };

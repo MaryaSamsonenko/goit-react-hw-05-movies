@@ -1,22 +1,31 @@
 import propTypes from 'prop-types';
-
-export const MovieCard = ({ movie }) => {
+import {
+  WrapperCard,
+  MovieContentWrapper,
+  MoviePoster,
+  MovieTitle,
+  MovieSubtitle,
+  MovieText,
+} from './MovieCard.styled';
+export const MovieCard = ({
+  movie: { title, poster_path, release_date, vote_average, overview, genres },
+}) => {
   return (
-    <div>
+    <WrapperCard>
       <div>
-        <img src={movie.poster_path} alt={movie.title} />
+        <MoviePoster src={poster_path} alt={title} />
       </div>
-      <div>
-        <h3>
-          {movie.title} ({movie.release_date})
-        </h3>
-        <p>User score: {movie.vote_average}</p>
-        <h4>Overview</h4>
-        <p>{movie.overview}</p>
-        <h4>Genres</h4>
-        <p>{movie.genres.join(', ')}</p>
-      </div>
-    </div>
+      <MovieContentWrapper>
+        <MovieTitle>
+          {title} ({release_date})
+        </MovieTitle>
+        <MovieText>User score: {vote_average}</MovieText>
+        <MovieSubtitle>Overview</MovieSubtitle>
+        <MovieText>{overview}</MovieText>
+        <MovieSubtitle>Genres</MovieSubtitle>
+        <MovieText>{genres.join(', ')}</MovieText>
+      </MovieContentWrapper>
+    </WrapperCard>
   );
 };
 

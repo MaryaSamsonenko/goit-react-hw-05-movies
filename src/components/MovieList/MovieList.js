@@ -1,19 +1,26 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { List, MovieLink, WrapperLink, Img } from './MovieList.styled';
+import propTypes from 'prop-types';
 
 export const MovieList = ({ movies }) => {
   const location = useLocation();
   return (
-    <ul>
+    <List>
       {movies.map(({ id, title, backdrop_path }) => {
         return (
           <li key={id}>
-            <img src={backdrop_path} alt={title} />
-            <Link to={`/searchmovies/${id}`} state={{ from: location }}>
-              {title}
-            </Link>
+            <Img src={backdrop_path} alt={title} />
+            <WrapperLink>
+              <MovieLink to={`/movies/${id}`} state={{ from: location }}>
+                {title}
+              </MovieLink>
+            </WrapperLink>
           </li>
         );
       })}
-    </ul>
+    </List>
   );
+};
+MovieList.propTypes = {
+  movies: propTypes.arrayOf(propTypes.object).isRequired,
 };

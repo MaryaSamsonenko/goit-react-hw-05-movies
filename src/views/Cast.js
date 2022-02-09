@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FetchCreditsMovies } from 'services/apiMovies';
-import { ActorsCard } from 'components/ActorsCard/ActorsCard';
-// import { Loader } from 'components/Loader/Loader';
+import { CastCard } from 'components/CastCard/CastCard';
+import { NotificationTitle } from 'components/HomeStyle/Home.styled';
 
-export const Actors = () => {
+export const Cast = () => {
   const { movieId } = useParams();
-  const [actors, setCast] = useState(null);
+  const [cast, setCast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -16,8 +16,8 @@ export const Actors = () => {
         setLoading(true);
         setError('');
         const { cast } = await FetchCreditsMovies(movieId);
-        const updatedActors = formatData(cast);
-        setCast(updatedActors);
+        const updatedCast = formatData(cast);
+        setCast(updatedCast);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -25,8 +25,8 @@ export const Actors = () => {
       }
     };
 
-    const formatData = actors => {
-      return actors.map(({ id, name, character, profile_path }) => ({
+    const formatData = cast => {
+      return cast.map(({ id, name, character, profile_path }) => ({
         id: id,
         name: name,
         character: character,
@@ -41,9 +41,13 @@ export const Actors = () => {
 
   return (
     <>
-      {loading && <h3>...Loading</h3>}
-      {error && <h3>Something went wrong, please try again</h3>}
-      {!error && !loading && actors && <ActorsCard actors={actors} />}
+      {loading && <NotificationTitle>...Loading</NotificationTitle>}
+      {error && (
+        <NotificationTitle>
+          Something went wrong, please try again
+        </NotificationTitle>
+      )}
+      {!error && !loading && cast && <CastCard cast={cast} />}
     </>
   );
 };

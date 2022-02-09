@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import { SearchBar } from 'components/SearchBar/SearchBar';
 import { FetchSearchMovies } from 'services/apiMovies';
 import { MovieList } from 'components/MovieList/MovieList';
+import { Section } from 'components/Section/Section';
+import { Container } from 'components/Container/Container';
+import { NotificationTitle } from 'components/HomeStyle/Home.styled';
 
 export const MovieSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -48,15 +51,21 @@ export const MovieSearch = () => {
   };
 
   return (
-    <div>
-      <SearchBar onSubmit={handleOnSubmit} />
-
-      {loading && <h2>Loading...</h2>}
-      {error && <h3>Something went wrong, please try again</h3>}
-      {movies && !loading && !error && <MovieList movies={movies} />}
-      {movies && !loading && !error && movies.length === 0 && (
-        <h3>Nothing found for this query</h3>
-      )}
-    </div>
+    <Section>
+      <Container>
+        <SearchBar onSubmit={handleOnSubmit} />
+        {loading && <NotificationTitle>Loading...</NotificationTitle>}
+        {error && (
+          <NotificationTitle>
+            Something went wrong, please try again
+          </NotificationTitle>
+        )}
+        {movies && !loading && !error && <MovieList movies={movies} />}
+        {movies && !loading && !error && movies.length === 0 && (
+          <NotificationTitle>Nothing found for this query</NotificationTitle>
+        )}
+        <Outlet />
+      </Container>
+    </Section>
   );
 };

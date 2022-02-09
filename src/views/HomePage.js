@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import { FetchTrendingMovies } from '../services/apiMovies';
 import { MovieList } from '../components/MovieList/MovieList';
 import { Container } from '../components/Container/Container';
+import { Section } from 'components/Section/Section';
+import {
+  TrendingTitle,
+  Button,
+  NotificationTitle,
+} from 'components/HomeStyle/Home.styled';
 
 export const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -42,18 +48,24 @@ export const HomePage = () => {
   };
 
   return (
-    <Container>
-      {loading && <h3>Loading...</h3>}
-      {movies && !loading && !error && (
-        <>
-          <p>Trending today</p>
-          <MovieList movies={movies} />
-        </>
-      )}
-      {error && <h3>Something went wrong, please try again</h3>}
-      <button type="button" onClick={handleOnClick}>
-        Load more
-      </button>
-    </Container>
+    <Section>
+      <Container>
+        {loading && <NotificationTitle>Loading...</NotificationTitle>}
+        {movies && !loading && !error && (
+          <>
+            <TrendingTitle>Trending today</TrendingTitle>
+            <MovieList movies={movies} />
+            <Button type="button" onClick={handleOnClick}>
+              Load more
+            </Button>
+          </>
+        )}
+        {error && (
+          <NotificationTitle>
+            Something went wrong, please try again
+          </NotificationTitle>
+        )}
+      </Container>
+    </Section>
   );
 };

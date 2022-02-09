@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FetchReviewsMovies } from 'services/apiMovies';
 import { ReviewsList } from 'components/ReviewsList/ReviewsList';
-// import { Loader } from 'components/Loader/Loader';
+import { NotificationTitle } from 'components/HomeStyle/Home.styled';
 
 export const Reviews = () => {
   const { movieId } = useParams();
@@ -18,7 +18,6 @@ export const Reviews = () => {
         const { results } = await FetchReviewsMovies(movieId);
         const updatedReviews = formatData(results);
         setReviews(updatedReviews);
-        console.log(results);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -39,13 +38,19 @@ export const Reviews = () => {
 
   return (
     <>
-      {loading && <h3>Loading...</h3>}
-      {error && <h3>Something went wrong, please try again</h3>}
+      {loading && <NotificationTitle>Loading...</NotificationTitle>}
+      {error && (
+        <NotificationTitle>
+          Something went wrong, please try again
+        </NotificationTitle>
+      )}
       {!error && !loading && reviews && reviews.length > 0 && (
         <ReviewsList reviews={reviews} />
       )}
       {!error && !loading && reviews && reviews.length === 0 && (
-        <h3>There are no reviews for this movie yet</h3>
+        <NotificationTitle>
+          There are no reviews for this movie yet
+        </NotificationTitle>
       )}
     </>
   );
