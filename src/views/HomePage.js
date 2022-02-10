@@ -44,14 +44,14 @@ export const HomePage = () => {
   }, [page]);
 
   const handleOnClick = () => {
-    setPage(prevPage => prevPage + 1);
+    setPage(page + 1);
   };
 
   return (
     <Section>
       <Container>
         {loading && <NotificationTitle>Loading...</NotificationTitle>}
-        {movies && !loading && !error && (
+        {movies.length > 0 && !error && (
           <>
             <TrendingTitle>Trending today</TrendingTitle>
             <MovieList movies={movies} />
